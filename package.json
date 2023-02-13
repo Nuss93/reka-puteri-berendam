@@ -1,0 +1,23 @@
+{
+  "name": "reka-puteri-berendam",
+  "version": "1.0.0",
+  "description": "experiment reka whatsapp bot for project puteris berendam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nuss93/reka-puteri-berendam.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nuss93/reka-puteri-berendam/issues"
+  },
+  "homepage": "https://github.com/Nuss93/reka-puteri-berendam#readme",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.19.4"
+  }
+}
