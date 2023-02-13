@@ -15,7 +15,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
 	const content = message.body;
-	console.log('got message');
+	console.log('got message', content);
 
 	if(content === '!ping') {
 		message.reply('pong');
