@@ -4,7 +4,12 @@ const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const fs = require('fs')
 const axios = require('axios')
+const { initializeApp } = require('firebase/app')
+// const { getDatabase } = require('firebase/database');
+const firebaseConfig = require('./config.js');
+// const db = getDatabase();
 
+const app = initializeApp(firebaseConfig);
 const client = new Client({
 	authStrategy: new LocalAuth()
 });
@@ -30,6 +35,9 @@ client.on('ready', () => {
 
 		console.log('Logs fetched!');
 	})
+
+	// let snapshot = db.ref('/hello').once('value')
+	// console.log('app', snapshot.val());
 });
 
 client.on('message_create', async message => {
