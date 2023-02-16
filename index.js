@@ -34,7 +34,7 @@ client.on('ready', () => {
 
 client.on('message_create', async message => {
 	const content = message.body;
-	console.log('=============================');
+	console.log('======================================');
 	// console.log('got message', message.from, content, message.isStatus);
 	console.log('new message!');
 	// console.log(message);
@@ -98,7 +98,7 @@ client.on('message_create', async message => {
 			const chat = await message.getChat();
 			console.log(chat.participants);
 			// message.reply('Some group info: \n\nName : ' + chat.name + '\n\n Members: ' + chat.size + ' \n\n')
-			message.reply(JSON.stringify(chat))
+			message.reply(JSON.stringify(chat, null, 2))
 		}
 		if(content === '/getcommon') {
 			const common_group = await client.getCommonGroups(ID);
