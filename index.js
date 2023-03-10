@@ -4,12 +4,18 @@ const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const fs = require('fs')
 const axios = require('axios')
-const { initializeApp } = require('firebase/app')
-// const { getDatabase } = require('firebase/database');
-const firebaseConfig = require('./config.js');
-// const db = getDatabase();
 
-const app = initializeApp(firebaseConfig);
+var admin = require("firebase-admin");
+const { getDatabase } = require('firebase-admin/database');
+const firebaseConfig = require('./config.js');
+
+var serviceAccount = require('/Users/nasreenrazak/Documents/GitHub/reka-puteri-berendam/reka-puteri-berendam-firebase-adminsdk-ma1l4-4c412348d4.json');
+const app = admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount),
+	databaseURL: "https://reka-puteri-berendam-default-rtdb.asia-southeast1.firebasedatabase.app"
+  });
+const db = getDatabase();
+
 const client = new Client({
 	authStrategy: new LocalAuth()
 });
@@ -38,6 +44,11 @@ client.on('ready', () => {
 
 	// let snapshot = db.ref('/hello').once('value')
 	// console.log('app', snapshot.val());
+	db.ref('/data').on('value', (snapshot) => {
+		console.log(snapshot.val());
+	}, (errorObject) => {
+		console.log('The read failed: ' + errorObject.name);
+	}); 
 });
 
 client.on('message_create', async message => {
@@ -102,6 +113,11 @@ client.on('message_create', async message => {
 			message.reply("We are inventors, designers, engineers, and entrepreneurs, passionate and purposeful in the work we do.\n\nWe are working to create a better way of solving some of the world's problems. We have a once-in-a-century opportunity to reinvent how we do things in our life—and we need your help.\n\nAt REKA, you'll find a creative, collaborative environment where great ideas thrive, and where everyone is driven by the same big purpose.")
 		}
 
+		if(content === '/getinfo') {
+			// const info = await clientInfo()
+			// console.log(info);
+		}
+
 		if(content === '/getchat') {
 			const chat = await message.getChat();
 			console.log(chat.participants);
@@ -114,6 +130,8 @@ client.on('message_create', async message => {
 			// message.reply('Some group info: \n\nName : ' + chat.name + '\n\n Members: ' + chat.size + ' \n\n')
 			message.reply('Total common groups : ' + common_group.length)
 		}
+
+
 		if(content === '/giveup') {
 			message.reply('Nasreen dah give up ke tuu. Bye~')
 		}
